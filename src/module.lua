@@ -38,7 +38,6 @@ local name = {
 _G.timetable = ""
 _G.safelock = false 
 
-
 function JSON(array,a,b,c)
 	--local a = "Sanjay"
 	--local b = "5.17.2017"
@@ -56,7 +55,7 @@ function GenerateName()
 	if x == 1 then
 	  return name["boy"][y]
 	elseif x == 2 then
-	  return name["girl"][y]
+	  return name["girl"][x]
 	elseif x >= 3 then
 	  print("Module : X greater than 2. Not possible.")
 	end
@@ -82,7 +81,11 @@ function GenerateTime()
 		_G.timetable = "pm"
 		return Format("time",t,m,_G.timetable)
 	end
-	
+end
+
+function GenerateAttendance()
+  local a = math.random(0,5)
+  return a
 end
 
 function Format(e,t,m,d)
@@ -102,14 +105,17 @@ function Format(e,t,m,d)
 	  local e = GenerateName()
 	  local f = GenerateDate()
 	  local g = GenerateTime()
-	  print("| "..e.." | "..f.." | "..g.." | ")
-	  print("--------------------------------")
+	  local h = GenerateAttendance()
+	  print("| "..e.." | "..f.." | "..g.." | "..h.." of 5 | ")
+	  print("-----------------------------------------------")
 	end
 end
 
 function GenerateTicket()
-  print("[Work Schedule]")
-  print("--------------------------------")
+  print("                [Work Schedule]                ")
+  print("-----------------------------------------------")
+  print("| Issued | "..os.date().." | ")
+  print("-----------------------------------------------")
   num = 0
   while num < 8 do
     num = num + 1
