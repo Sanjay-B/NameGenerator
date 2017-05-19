@@ -1,31 +1,64 @@
-local data = {employee="",date="",left=""}
+local data = {
+  employee="",
+  date="",
+  left=""
+}
+
+local name = {
+  
+  -- Boy names : 10 
+  ["boy"] = {
+    "Dave",
+    "Bill",
+    "Bob",
+    "Sam",
+    "Hunter",
+    "Paul",
+    "Sanjay",
+    "Robert",
+    "Andrew",
+    "Matt"
+  },
+
+  -- Girl names : 10 
+  ["girl"] = {
+    "Sarah",
+    "Sandra",
+    "Cara",
+    "Jillian",
+    "Macy",
+    "Kelsey",
+    "Ashley",
+    "Courtney",
+    "Jessica",
+    "Janet"
+  }
+}
 
 _G.timetable = ""
+_G.safelock = false 
 
 
 function JSON(array,a,b,c)
 	--local a = "Sanjay"
 	--local b = "5.17.2017"
 	--local c = "7:32pm EST"
-	data["employee"] = a
+	--print("yes")
+	data["employee"] = a 
 	data["date"] = b
 	data["left"] = c
-	print(data["employee"],data["date"],data["left"])
+	return data["employee"],data["date"],data["left"]
 end
 
-function Format(e,t,m,d)
-	local a = ""
-	if d then
-		a = tostring(t..":"..m..d)
-	end
-	local b = tostring(t.."."..m..".2017")
-	if e == nil then
-		return print("Event = Nil")
-	elseif e == "time" then
-		return a
-	elseif e == "date" then
-		return b
-	elseif 
+function GenerateName()
+  local x = math.random(1,2) -- boy or girl
+	local y = math.random(1,10) -- possible 1 of 10 name
+	if x == 1 then
+	  return name["boy"][y]
+	elseif x == 2 then
+	  return name["girl"][y]
+	elseif x >= 3 then
+	  print("Module : X greater than 2. Not possible.")
 	end
 end
 
@@ -52,4 +85,49 @@ function GenerateTime()
 	
 end
 
-JSON(data,"Sanjay Bhadra",GenerateDate(),GenerateTime())
+function Format(e,t,m,d)
+	local a = ""
+	if d then
+		a = tostring(t..":"..m..d)
+	end
+	if e == nil then
+		return print("Event = Nil")
+	elseif e == "time" then
+		return a
+	elseif e == "date" then
+	  local b = tostring(t.."."..m..".2017")
+		return b
+	elseif e == "list" then
+	  --JSON(data,GenerateName(),GenerateDate(),GenerateTime())
+	  local e = GenerateName()
+	  local f = GenerateDate()
+	  local g = GenerateTime()
+	  print("| "..e.." | "..f.." | "..g.." | ")
+	  print("--------------------------------")
+	end
+end
+
+function GenerateTicket()
+  print("[Work Schedule]")
+  print("--------------------------------")
+  num = 0
+  while num < 8 do
+    num = num + 1
+    Format("list")
+  end
+  --break 
+end
+
+--[[
+  num = 0
+  while num < 8 do
+    num = num + 1
+    print(num)
+  end
+]]--
+
+
+GenerateTicket()
+--Format("list")
+--JSON(data,GenerateName(),GenerateDate(),GenerateTime())
+
