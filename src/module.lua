@@ -55,7 +55,7 @@ function GenerateName()
 	if x == 1 then
 	  return name["boy"][y]
 	elseif x == 2 then
-	  return name["girl"][x]
+	  return name["girl"][y]
 	elseif x >= 3 then
 	  print("Module : X greater than 2. Not possible.")
 	end
